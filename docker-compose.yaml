@@ -1,0 +1,27 @@
+version: '3'
+services:
+        webserv:
+                build:
+                        context: ./
+                        dockerfile: web.docker
+                ports:
+                        - '80:80'
+                        - '443:443'
+                links:
+                        - app
+                depends_on:
+                        - app
+                volumes:
+                        - ./:/app
+                networks:
+                        - default
+        app:
+                build:
+                        context: ./
+                        dockerfile: app.docker
+                ports:
+                        - '9000:9000'
+                volumes:
+                        - ./:/app
+                networks:
+                        - default
